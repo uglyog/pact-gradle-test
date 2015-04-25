@@ -1,0 +1,1 @@
+while true; do { echo -e 'HTTP/1.1 422\r\nDate: Fri, 24 Apr 2015 18:47:33 GMT\r\nContent-Type: application/json\r\nContent-Length: 95\r\n\r\n{"errors":[{"code":"2","message":"cannot be blank","field-name":"token","invalid-value":" "}]}'; } | nc -l -p 8084; done
