@@ -1,0 +1,43 @@
+{
+  "provider" : {
+    "name" : "sampleprovider"
+  },
+  "consumer" : {
+    "name" : "sampleconsumer"
+  },
+  "interactions" : [ {
+    "description" : "An authentication request with an empty token",
+    "request" : {
+      "method" : "POST",
+      "path" : "/authenticate",
+      "headers" : {
+        "Content-Type" : "application/json"
+      },
+      "body" : {
+        "token" : "    "
+      }
+    },
+    "response" : {
+      "status" : 422,
+      "headers" : {
+        "Content-Type" : "application/json"
+      },
+      "body" : {
+        "errors" : [ {
+          "code" : "2",
+          "message" : "cannot be blank",
+          "field-name" : "token",
+          "invalid-value" : " "
+        } ]
+      }
+    }
+  } ],
+  "metadata" : {
+    "pact-specification" : {
+      "version" : "2.0.0"
+    },
+    "pact-jvm" : {
+      "version" : "2.1.12"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+plugins {
+    id "au.com.dius.pact" version "2.1.12"
+}
+
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+}
+
+pact {
+    serviceProviders {
+        sampleprovider {
+            port = 8084
+            hasPactWith("sampleconsumer") {
+                pactFile = file('src/test/resources/sample-pact.json')
+            }
+        }
+    }
+}
