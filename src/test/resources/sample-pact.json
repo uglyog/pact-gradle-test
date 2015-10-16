@@ -11,7 +11,7 @@
       "provider_state": "many activities exist",
       "request": {
         "method": "get",
-        "path": "",
+        "path": "/activities",
         "headers": {
           "Accept": "application/json"
         }

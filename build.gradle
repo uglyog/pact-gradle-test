@@ -1,17 +1,20 @@
 buildscript {
     repositories {
-        mavenLocal()
-        mavenCentral()
+      mavenLocal()
+      mavenCentral()
+      jcenter()
     }
 
     dependencies {
-        classpath "au.com.dius:pact-jvm-provider-gradle_2.11:3.1.0"
+      classpath 'au.com.dius:pact-jvm-provider-gradle_2.11:3.1.0'
+      classpath 'io.ratpack:ratpack-gradle:1.0.0'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'au.com.dius.pact'
+apply plugin: 'io.ratpack.ratpack-groovy'
 
 version = '1.0'
 
@@ -21,13 +24,13 @@ repositories {
 }
 
 dependencies {
-
+  runtime 'org.slf4j:slf4j-simple:1.7.7'
 }
 
 pact {
     serviceProviders {
         sampleprovider {
-            port = 8084
+            port = 5050
             hasPactWith("sampleconsumer") {
                 pactFile = file('src/test/resources/sample-pact.json')
             }
