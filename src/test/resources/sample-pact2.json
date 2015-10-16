@@ -11,7 +11,7 @@
       "provider_state": "many activities exist",
       "request": {
         "method": "get",
-        "path": "",
+        "path": "/activities",
         "headers": {
           "Accept": "application/json"
         }
@@ -24,12 +24,12 @@
         "body": {
           "activities": [
             {
-              "name": "hx55sbvMPk1kF-9",
-              "description": "f_UXcxIXYhgqtxjiPumRiCo9C5JNDX"
+              "name": "V1Zfa-LCfYPEE-o",
+              "description": "COUxFaKRDRKaBnjg-LuOASNn_Xxy6H"
             },
             {
-              "name": "hx55sbvMPk1kF-9",
-              "description": "f_UXcxIXYhgqtxjiPumRiCo9C5JNDX"
+              "name": "V1Zfa-LCfYPEE-o",
+              "description": "COUxFaKRDRKaBnjg-LuOASNn_Xxy6H"
             }
           ]
         },
@@ -41,10 +41,12 @@
             "match": "type"
           },
           "$.body.activities[*].name": {
-            "match": "type"
+            "match": "regex",
+            "regex": "(\\w|\\s)+"
           },
           "$.body.activities[*].description": {
-            "match": "type"
+            "match": "regex",
+            "regex": "(\\w|\\s)+"
           }
         }
       }

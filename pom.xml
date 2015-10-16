@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>au.com.dius.pact</groupId>
+  <artifactId>pact-gradle-test</artifactId>
+  <version>1.0</version>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>au.com.dius</groupId>
+                <artifactId>pact-jvm-provider-maven_2.11</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <serviceProviders>
+                        <serviceProvider>
+                            <name>sampleprovider</name>
+                            <port>8084</port>
+                            <consumers>
+                                <consumer>
+                                    <name>sampleconsumer</name>
+                                    <pactFile>src/test/resources/sample-pact.json</pactFile>
+                                    <!--<pactUrl>http://ri-docker-host.hq.local:5000/pacts/provider/transaction-service/consumer/asis-insurance-service/latest</pactUrl>-->
+                                </consumer>
+                            </consumers>
+                        </serviceProvider>
+                    </serviceProviders>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
