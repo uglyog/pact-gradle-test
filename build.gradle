@@ -6,8 +6,9 @@ buildscript {
     }
 
     dependencies {
-      classpath 'au.com.dius:pact-jvm-provider-gradle_2.11:3.1.0'
+      classpath 'au.com.dius:pact-jvm-provider-gradle_2.11:3.2.1'
       classpath 'io.ratpack:ratpack-gradle:1.0.0'
+      classpath 'com.tkruse.gradle:gradle-groovysh-plugin:1.0.7'
     }
 }
 
@@ -15,28 +16,38 @@ apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'au.com.dius.pact'
 apply plugin: 'io.ratpack.ratpack-groovy'
+apply plugin: 'com.github.tkruse.groovysh'
 
 version = '1.0'
 
 repositories {
-    mavenLocal()
-    mavenCentral()
+  mavenLocal()
+  mavenCentral()
+  jcenter()
 }
 
 dependencies {
-  runtime 'org.slf4j:slf4j-simple:1.7.7'
+  runtime 'org.slf4j:slf4j-simple:1.7.7', 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
 }
 
 pact {
     serviceProviders {
-        sampleprovider {
+        'Activity Service' {
             port = 5050
             hasPactWith("sampleconsumer") {
                 pactFile = file('src/test/resources/sample-pact.json')
             }
+
             hasPactWith("sampleconsumer2") {
                 pactFile = file('src/test/resources/sample-pact2.json')
             }
+
+//          hasPactsFromPactBroker('http://localhost:8080/', authentication: ['basic', 'ronald', 'ronald'])
         }
     }
+}
+
+groovysh {
+  // groovyVersion determines the features of the shell and buildShell tasks.
+  groovyVersion = '2.4.3'
 }
