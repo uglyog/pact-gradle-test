@@ -1,0 +1,33 @@
+{
+  "provider": {
+    "name": "My Provider"
+  },
+  "consumer": {
+    "name": "My Consumer"
+  },
+  "interactions": [
+    {
+      "providerState": null,
+      "description": "add a broker",
+      "request": {
+        "method": "GET",
+        "path": "/api/broker/add",
+        "query": "options=delete.topic.enable=true&broker=1"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "2.0.0"
+    },
+    "pact-jvm": {
+      "version": "3.2.5"
+    }
+  }
+}

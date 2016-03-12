@@ -1,11 +1,18 @@
 import groovy.json.JsonOutput
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import ratpack.handling.RequestLogger
 import ratpack.http.TypedData
 
 import static ratpack.groovy.Groovy.ratpack
 
+final Logger logger = LoggerFactory.getLogger(Ratpack.class)
+
 ratpack {
 
   handlers {
+
+    all RequestLogger.ncsa(logger)
 
     get('activities') {
       response.contentType('application/json')
@@ -15,6 +22,12 @@ ratpack {
           [name: "Fred", "description": "Description of Fred"],
         ]
       ]))
+    }
+
+    get('api/broker/add') {
+      println "path=${request.path}"
+      println "query=${request.query}"
+      render "Ok"
     }
 
     post('query') {
