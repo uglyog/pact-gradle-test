@@ -6,6 +6,7 @@ import au.com.dius.pact.provider.junit.loader.PactBroker;
 import au.com.dius.pact.provider.junit.target.HttpTarget;
 import au.com.dius.pact.provider.junit.target.Target;
 import au.com.dius.pact.provider.junit.target.TestTarget;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 
 @RunWith(PactRunner.class)

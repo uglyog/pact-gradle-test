@@ -1,0 +1,83 @@
+{
+  "consumer": {
+    "name": "Hello Consumer"
+  },
+  "provider": {
+    "name": "Hello Provider"
+  },
+  "interactions": [
+    {
+      "description": "a request friends",
+      "request": {
+        "method": "get",
+        "path": "/friends",
+        "query": "age=30&children=Mary Jane&children=James",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "friends": {
+            "json_class": "Pact::ArrayLike",
+            "contents": {
+              "name": {
+                "json_class": "Pact::SomethingLike",
+                "contents": "Sue"
+              }
+            },
+            "min": 1
+          }
+        },
+        "matchingRules": {
+          "$.body.friends": {
+            "min": 1
+          },
+          "$.body.friends[*].*": {
+            "match": "type"
+          },
+          "$.body.friends[*].name": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "a request to unfriend",
+      "provider_state": "I am friends with Fred",
+      "request": {
+        "method": "put",
+        "path": "/unfriendMe"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "reply": "Bye"
+        }
+      }
+    },
+    {
+      "description": "a request to unfriend but no friends",
+      "provider_state": "I have no friends",
+      "request": {
+        "method": "put",
+        "path": "/unfriendMe"
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecificationVersion": "2.0.0"
+  }
+}

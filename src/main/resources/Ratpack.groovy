@@ -49,6 +49,19 @@ ratpack {
         ]
       ]))
     }
+
+    post('tasks/pactStateChange') {
+      println "path=${request.path}"
+      println "contentType=${request.contentType}"
+      println "headers:"
+      request.headers.names.each {
+        println "    $it=[${request.headers.get(it)}]"
+      }
+      request.getBody().then { TypedData data ->
+        println "body=[${data.text}]"
+      }
+      render('OK')
+    }
   }
 
 }
