@@ -71,7 +71,7 @@
         "path": "/unfriendMe"
       },
       "response": {
-        "status": 404,
+        "status": 200,
         "headers": {
         }
       }

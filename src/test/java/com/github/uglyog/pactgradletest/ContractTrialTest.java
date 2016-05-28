@@ -2,6 +2,7 @@ package com.github.uglyog.pactgradletest;
 
 import au.com.dius.pact.provider.junit.PactRunner;
 import au.com.dius.pact.provider.junit.Provider;
+import au.com.dius.pact.provider.junit.VerificationReports;
 import au.com.dius.pact.provider.junit.TargetRequestFilter;
 import au.com.dius.pact.provider.junit.loader.PactFolder;
 import au.com.dius.pact.provider.junit.loader.PactUrl;
@@ -16,6 +17,7 @@ import org.apache.commons.codec.binary.Base64;
 @Provider("Hello Provider") // Set up name of tested provider
 //@PactUrl(urls = {"file:///home/ronald/Development/Projects/Pact/pact-gradle-test/src/test/resources/hello_consumer-hello_provider.json"})
 @PactFolder("pacts")
+//@VerificationReports({"console", "json", "markdown"})
 public class ContractTrialTest {
   @TestTarget // Annotation denotes Target that will be used for tests
   public final Target target = new HttpTarget(5050);

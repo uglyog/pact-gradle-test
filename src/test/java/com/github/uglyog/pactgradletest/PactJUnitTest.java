@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 @RunWith(PactRunner.class)
 @Provider("Activity Service")
 @PactBroker(host = "${pactbroker.url:localhost}", port = "80")
+@Ignore
 public class PactJUnitTest {
 
   @TestTarget

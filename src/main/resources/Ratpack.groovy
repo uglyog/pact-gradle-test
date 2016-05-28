@@ -18,8 +18,8 @@ ratpack {
       response.contentType('application/json')
       render(JsonOutput.toJson([
         activities: [
-          [name: "Bob", "description": "Description of bob"],
-          [name: "Fred", "description": "Description of Fred"],
+//          [name: "Bob", "description": "Description of bob"],
+          [name: "Fred", "description": 100],
         ]
       ]))
     }
@@ -28,6 +28,13 @@ ratpack {
       println "path=${request.path}"
       println "query=${request.query}"
       render "Ok"
+    }
+
+    put('unfriendMe') {
+      println "path=${request.path}"
+      println "query=${request.query}"
+      response.contentType('application/json')
+      render JsonOutput.toJson("Ok")
     }
 
     post('query') {
@@ -44,8 +51,8 @@ ratpack {
       response.contentType('application/json')
       render(JsonOutput.toJson([
         activities: [
-          [name: "Bob", "description": "Description of bob"],
-          [name: "Fred", "description": "Description of Fred"],
+//          [name: "Bob", "description": "Description of bob"],
+          [name: "Fred", "description": 100],
         ]
       ]))
     }

@@ -32,12 +32,16 @@ dependencies {
   testCompile 'au.com.dius:pact-jvm-provider-junit_2.11:3.2.7', 'commons-codec:commons-codec:1.10'
 }
 
+test {
+  systemProperties['pact.verification.reports'] = ''
+}
+
 pact {
     serviceProviders {
         'Activity Service' {
             port = 5050
             hasPactWith("sampleconsumer") {
-                pactFile = file('src/test/resources/sample-pact.json')
+                pactFile = { new File('src/test/resources/sample-pact.json') }
             }
 
             hasPactWith("sampleconsumer2") {
@@ -51,6 +55,13 @@ pact {
 
 //          hasPactsFromPactBroker('http://localhost:8080/', authentication: ['basic', 'ronald', 'ronald'])
         }
+    }
+
+    reports {
+      defaultReports()
+
+      markdown
+      json
     }
 }
 
