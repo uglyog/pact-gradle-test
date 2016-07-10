@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-      classpath 'au.com.dius:pact-jvm-provider-gradle_2.11:3.2.7'
+      classpath 'au.com.dius:pact-jvm-provider-gradle_2.11:3.2.9'
       classpath 'io.ratpack:ratpack-gradle:1.2.0'
       classpath 'com.tkruse.gradle:gradle-groovysh-plugin:1.0.7'
     }
@@ -27,9 +27,11 @@ repositories {
 }
 
 dependencies {
-  runtime 'org.slf4j:slf4j-simple:1.7.7',
+  runtime 'ch.qos.logback:logback-core:1.1.7',
+    'ch.qos.logback:logback-classic:1.1.7',
     'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
-  testCompile 'au.com.dius:pact-jvm-provider-junit_2.11:3.2.7', 'commons-codec:commons-codec:1.10'
+  testCompile 'au.com.dius:pact-jvm-provider-junit_2.11:3.2.9',
+    'commons-codec:commons-codec:1.10'
 }
 
 test {
@@ -40,20 +42,21 @@ pact {
     serviceProviders {
         'Activity Service' {
             port = 5050
-            hasPactWith("sampleconsumer") {
-                pactFile = { new File('src/test/resources/sample-pact.json') }
-            }
+//            hasPactWith("sampleconsumer") {
+//                pactFile = { new File('src/test/resources/sample-pact.json') }
+//            }
+//
+//            hasPactWith("sampleconsumer2") {
+//                pactFile = file('src/test/resources/sample-pact2.json')
+//            }
+//
+//            hasPactWith("sampleconsumer3") {
+//                pactFile = file('src/test/resources/sample-pact3.json')
+//            }
 
-            hasPactWith("sampleconsumer2") {
-                pactFile = file('src/test/resources/sample-pact2.json')
-            }
 
-            hasPactWith("sampleconsumer3") {
-                pactFile = file('src/test/resources/sample-pact3.json')
-            }
-
-
-//          hasPactsFromPactBroker('http://localhost:8080/', authentication: ['basic', 'ronald', 'ronald'])
+//          verificationType = "ANNOTATED_METHOD"
+//          hasPactsFromPactBroker('http://localhost:80/')
         }
     }
 

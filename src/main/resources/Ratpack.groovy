@@ -14,6 +14,13 @@ ratpack {
 
     all RequestLogger.ncsa(logger)
 
+    get {
+      response.contentType('application/json')
+      render(JsonOutput.toJson([
+        _links: [:]
+      ]))
+    }
+
     get('activities') {
       response.contentType('application/json')
       render(JsonOutput.toJson([

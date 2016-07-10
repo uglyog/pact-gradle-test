@@ -10,6 +10,7 @@ import au.com.dius.pact.provider.junit.target.HttpTarget;
 import au.com.dius.pact.provider.junit.target.Target;
 import au.com.dius.pact.provider.junit.target.TestTarget;
 import org.apache.http.HttpRequest;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.apache.commons.codec.binary.Base64;
 
@@ -18,6 +19,7 @@ import org.apache.commons.codec.binary.Base64;
 //@PactUrl(urls = {"file:///home/ronald/Development/Projects/Pact/pact-gradle-test/src/test/resources/hello_consumer-hello_provider.json"})
 @PactFolder("pacts")
 //@VerificationReports({"console", "json", "markdown"})
+@Ignore
 public class ContractTrialTest {
   @TestTarget // Annotation denotes Target that will be used for tests
   public final Target target = new HttpTarget(5050);

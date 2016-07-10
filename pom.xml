@@ -6,27 +6,59 @@
   <artifactId>pact-gradle-test</artifactId>
   <version>1.0</version>
 
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-provider-junit_2.11</artifactId>
+            <version>3.2.10</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>au.com.dius</groupId>
                 <artifactId>pact-jvm-provider-maven_2.11</artifactId>
-                <version>3.2.7</version>
+                <version>3.2.10</version>
                 <configuration>
                     <serviceProviders>
                         <serviceProvider>
                             <name>sampleprovider</name>
                             <port>5050</port>
+                            <!--<pactBrokerUrl>http://localhost</pactBrokerUrl>-->
+                            <verificationType>ANNOTATED_METHOD</verificationType>
+                            <packagesToScan>
+                                <packageToScan>com.github.uglyog.pactgradletest.*</packageToScan>
+                            </packagesToScan>
                             <consumers>
                                 <consumer>
                                     <name>sampleconsumer</name>
-                                    <pactFile>src/test/resources/sample-pact.json</pactFile>
+                                    <pactFile>src/test/resources/v3-message-pact.json</pactFile>
                                     <!--<pactUrl>http://ri-docker-host.hq.local:5000/pacts/provider/transaction-service/consumer/asis-insurance-service/latest</pactUrl>-->
                                 </consumer>
                             </consumers>
                         </serviceProvider>
                     </serviceProviders>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                        <version>1.7.21</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-jdk14</artifactId>
+                        <version>1.7.21</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
