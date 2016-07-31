@@ -7,12 +7,30 @@
   },
   "interactions": [
     {
-      "providerState": null,
+      "providerStates": [
+        {
+          "name": "state one",
+          "params": {
+            "a": "b",
+            "c": 1
+          }
+        },
+        {
+          "name": "state two",
+          "params": {
+            "a": "c",
+            "c": 100
+          }
+        }
+      ],
       "description": "add a broker",
       "request": {
         "method": "GET",
         "path": "/api/broker/add",
-        "query": "options=delete.topic.enable=true&broker=1"
+        "query": {
+          "options": ["delete.topic.enable=true"],
+          "broker": ["1"]
+        }
       },
       "response": {
         "status": 200,
@@ -25,7 +43,7 @@
   ],
   "metadata": {
     "pact-specification": {
-      "version": "2.0.0"
+      "version": "3.0.0"
     },
     "pact-jvm": {
       "version": "3.2.5"

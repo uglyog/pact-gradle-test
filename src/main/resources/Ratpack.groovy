@@ -67,6 +67,7 @@ ratpack {
     post('tasks/pactStateChange') {
       println "path=${request.path}"
       println "contentType=${request.contentType}"
+      println "query=${request.query}"
       println "headers:"
       request.headers.names.each {
         println "    $it=[${request.headers.get(it)}]"
