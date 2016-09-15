@@ -34,7 +34,13 @@ ratpack {
     get('api/broker/add') {
       println "path=${request.path}"
       println "query=${request.query}"
-      render "Ok"
+      response.contentType('application/json')
+      render(JsonOutput.toJson([
+        name: [
+          first: "Donald",
+          last: "duck"
+        ]
+      ]))
     }
 
     put('unfriendMe') {
@@ -76,6 +82,32 @@ ratpack {
         println "body=[${data.text}]"
       }
       render('OK')
+    }
+
+    get('article') {
+      response.contentType('application/json')
+      render(JsonOutput.toJson([
+        articles: [
+          [
+            variants: [
+              [
+                100: [
+                  [bundles: []]
+                ]
+              ]
+            ]
+          ],
+          [
+            variants: [
+              [
+                200: [
+                  [bundles: []]
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]))
     }
   }
 

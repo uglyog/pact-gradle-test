@@ -1,0 +1,92 @@
+{
+    "provider": {
+        "name": "WildcardKeysProvider"
+    },
+    "consumer": {
+        "name": "WildcardKeysConsumer"
+    },
+    "interactions": [
+        {
+            "description": "a request for an article",
+            "request": {
+                "method": "GET",
+                "path": "/article"
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": {
+                    "articles": [
+                        {
+                            "variants": [
+                                {
+                                    "001": [
+                                        {
+                                            "bundles": [
+                                                {
+                                                    "001-A": {
+                                                        "description": "Some Description",
+                                                        "referencedArticles": [
+                                                            {
+                                                                "001-A-1": 12345,
+                                                                "bundleId": 23456
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "matchingRules": {
+                    "$.body.articles[*].variants[*].*[*].bundles": {
+                        "min": 0,
+                        "match": "type"
+                    },
+                    "$.body.articles": {
+                        "min": 0,
+                        "match": "type"
+                    },
+                    "$.body.articles[*].variants[*].*[*].bundles[*].*": {
+                        "match": "type"
+                    },
+                    "$.body.articles[*].variants[*].*[*].bundles[*].*.referencedArticles[*].bundleId": {
+                        "match": "type"
+                    },
+                    "$.body.articles[*].variants[*].*[*].bundles[*].*.description": {
+                        "match": "type"
+                    },
+                    "$.body.articles[*].variants": {
+                        "min": 1,
+                        "match": "type"
+                    },
+                    "$.body.articles[*].variants[*].*[*].bundles[*].*.referencedArticles[*].*": {
+                        "match": "type"
+                    },
+                    "$.body.articles[*].variants[*].*": {
+                        "min": 1,
+                        "match": "type"
+                    },
+                    "$.body.articles[*].variants[*].*[*].bundles[*].*.referencedArticles": {
+                        "min": 0,
+                        "match": "type"
+                    }
+                }
+            }
+        }
+    ],
+    "metadata": {
+        "pact-specification": {
+            "version": "2.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.3.1"
+        }
+    }
+}

@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-      classpath 'au.com.dius:pact-jvm-provider-gradle_2.11:3.3.0-beta.0'
+      classpath 'au.com.dius:pact-jvm-provider-gradle_2.11:3.3.1'
       classpath 'io.ratpack:ratpack-gradle:1.2.0'
       classpath 'com.tkruse.gradle:gradle-groovysh-plugin:1.0.7'
     }
@@ -30,7 +30,7 @@ dependencies {
   runtime 'ch.qos.logback:logback-core:1.1.7',
     'ch.qos.logback:logback-classic:1.1.7',
     'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
-  testCompile 'au.com.dius:pact-jvm-provider-junit_2.11:3.3.0-beta.0',
+  testCompile 'au.com.dius:pact-jvm-provider-junit_2.11:3.3.1',
     'commons-codec:commons-codec:1.10'
 }
 
@@ -52,13 +52,17 @@ pact {
 //            hasPactWith("sampleconsumer2") {
 //                pactFile = file('src/test/resources/sample-pact2.json')
 //            }
-
-            hasPactWith("sampleconsumerV3") {
-                pactFile = file('src/test/resources/sample-pact-v3.json')
-            }
+//
+//            hasPactWith("sampleconsumerV3") {
+//                pactFile = file('src/test/resources/sample-pact-v3.json')
+//            }
 
 //          verificationType = "ANNOTATED_METHOD"
 //          hasPactsFromPactBroker('http://localhost:80/')
+
+            hasPactWith("wildcardkeys") {
+                pactFile = file('src/test/resources/WildcardKeysConsumer-WildcardKeysProvider.json')
+            }
         }
     }
 
@@ -69,10 +73,10 @@ pact {
       json
     }
 
-//  publish {
-//    pactDirectory = 'src/test/resources'
-//    pactBrokerUrl = 'http://localhost'
-//  }
+  publish {
+    pactDirectory = 'src/test/resources'
+    pactBrokerUrl = 'http://localhost'
+  }
 }
 
 groovysh {

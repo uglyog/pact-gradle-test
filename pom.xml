@@ -16,7 +16,7 @@
         <dependency>
             <groupId>au.com.dius</groupId>
             <artifactId>pact-jvm-provider-junit_2.11</artifactId>
-            <version>3.2.10</version>
+            <version>3.2.11</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -26,7 +26,7 @@
             <plugin>
                 <groupId>au.com.dius</groupId>
                 <artifactId>pact-jvm-provider-maven_2.11</artifactId>
-                <version>3.2.10</version>
+                <version>3.2.11</version>
                 <configuration>
                     <serviceProviders>
                         <serviceProvider>

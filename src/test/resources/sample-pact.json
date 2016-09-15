@@ -51,6 +51,8 @@
     }
   ],
   "metadata": {
-    "pactSpecificationVersion": "2.0.0"
+    "pact-specification": {
+      "version": "2.0.0"
+    }
   }
 }
