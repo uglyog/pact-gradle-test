@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-      classpath 'au.com.dius:pact-jvm-provider-gradle_2.11:3.3.1'
+      classpath 'au.com.dius:pact-jvm-provider-gradle_2.11:3.3.10'
       classpath 'io.ratpack:ratpack-gradle:1.2.0'
       classpath 'com.tkruse.gradle:gradle-groovysh-plugin:1.0.7'
     }
@@ -18,7 +18,7 @@ apply plugin: 'au.com.dius.pact'
 apply plugin: 'io.ratpack.ratpack-groovy'
 apply plugin: 'com.github.tkruse.groovysh'
 
-version = '1.0'
+version = '1.0.1'
 
 repositories {
   mavenLocal()
@@ -30,7 +30,7 @@ dependencies {
   runtime 'ch.qos.logback:logback-core:1.1.7',
     'ch.qos.logback:logback-classic:1.1.7',
     'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
-  testCompile 'au.com.dius:pact-jvm-provider-junit_2.11:3.3.1',
+  testCompile 'au.com.dius:pact-jvm-provider-junit_2.11:3.3.10',
     'commons-codec:commons-codec:1.10'
 }
 
@@ -44,25 +44,35 @@ pact {
             port = 5050
             stateChangeUrl = url('http://localhost:5050/tasks/pactStateChange')
             stateChangeUsesBody = false
+            publishVerificationResults = true
 
-//            hasPactWith("sampleconsumer") {
-//                pactFile = { new File('src/test/resources/sample-pact.json') }
+            hasPactWith("Foo Web Client") {
+                pactFile = { new File('src/test/resources/publish/sample-pact.json') }
+            }
+
+            hasPactWith("Foo Web Client 2") {
+                pactFile = file('src/test/resources/publish/sample-pact2.json')
+            }
+
+//            hasPactWith("sampleconsumerS3") {
+//                pactFile = 's3://irexchange-pacts/craft-mobile/test_consumer-testProvider.json'
 //            }
-//
-//            hasPactWith("sampleconsumer2") {
-//                pactFile = file('src/test/resources/sample-pact2.json')
-//            }
-//
-//            hasPactWith("sampleconsumerV3") {
-//                pactFile = file('src/test/resources/sample-pact-v3.json')
+
+//            hasPactsWith("test_consumer", authentication: ['mysecret']) {
+//              pactFileLocation = url("s3://....")
 //            }
 
 //          verificationType = "ANNOTATED_METHOD"
-//          hasPactsFromPactBroker('http://localhost:80/')
+//          hasPactsFromPactBroker('http://localhost:5050/')
 
-            hasPactWith("wildcardkeys") {
-                pactFile = file('src/test/resources/WildcardKeysConsumer-WildcardKeysProvider.json')
-            }
+//            hasPactWith("wildcardkeys") {
+//                pactFile = file('src/test/resources/WildcardKeysConsumer-WildcardKeysProvider.json')
+//            }
+
+//          hasPactWith("Test Client") {
+//              pactFile = file('src/test/resources/defect370-pact.json')
+//          }
+
         }
     }
 
@@ -74,8 +84,10 @@ pact {
     }
 
   publish {
-    pactDirectory = 'src/test/resources'
-    pactBrokerUrl = 'http://localhost'
+    pactDirectory = 'src/test/resources/publish'
+    pactBrokerUrl = 'https://test.pact.dius.com.au'
+    pactBrokerUsername = ''
+    pactBrokerPassword = ''
   }
 }
 

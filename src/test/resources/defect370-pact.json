@@ -1,0 +1,94 @@
+{
+  "consumer": {
+    "name": "Test Client"
+  },
+  "provider": {
+    "name": "Activity Service"
+  },
+  "interactions": [
+    {
+      "description": "a request to get all clients",
+      "request": {
+        "method": "GET",
+        "path": "/some/url/client"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8",
+          "X-TEST": "100"
+        },
+        "body": [
+          {
+            "accessTokenValiditySeconds": 42721462,
+            "allowedScopes": [
+              "JnTfAlnHKVSDzoWnUqZv"
+            ],
+            "autoApprove": true,
+            "grantTypes": [
+              "VfWudsTQINERQCnVKvoK"
+            ],
+            "id": "c53927c3-0d1c-48a8-8f0a-7560be89daa5",
+            "name": "FXUHHqWrZZcodhHBmeLf",
+            "redirectUris": [
+              "vWxSTjgJQvwUtwphDGcn"
+            ],
+            "refreshTokenValiditySeconds": 12393550,
+            "secretRequired": true
+          }
+        ],
+        "matchingRules": {
+          "$.body[*].allowedScopes[*]": {
+            "match": "type"
+          },
+          "$.body[*].redirectUris[*]": {
+            "match": "type"
+          },
+          "$.body[*].grantTypes[*]": {
+            "match": "type"
+          },
+          "$.body[*].redirectUris": {
+            "min": 0,
+            "match": "type"
+          },
+          "$.body[*].autoApprove": {
+            "match": "type"
+          },
+          "$.body": {
+            "min": 1,
+            "match": "type"
+          },
+          "$.body[*].id": {
+            "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+          },
+          "$.body[*].accessTokenValiditySeconds": {
+            "match": "integer"
+          },
+          "$.body[*].secretRequired": {
+            "match": "type"
+          },
+          "$.body[*].refreshTokenValiditySeconds": {
+            "match": "integer"
+          },
+          "$.body[*].name": {
+            "match": "type"
+          },
+          "$.body[*].allowedScopes": {
+            "min": 0,
+            "match": "type"
+          },
+          "$.body[*].grantTypes": {
+            "min": 0,
+            "match": "type"
+          }
+        }
+      },
+      "providerState": "the 'zero' client exists"
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "3.0.0"
+    }
+  }
+}

@@ -26,26 +26,42 @@
             <plugin>
                 <groupId>au.com.dius</groupId>
                 <artifactId>pact-jvm-provider-maven_2.11</artifactId>
-                <version>3.2.11</version>
+                <version>3.3.9</version>
                 <configuration>
                     <serviceProviders>
                         <serviceProvider>
-                            <name>sampleprovider</name>
+                            <name>Activity Service</name>
                             <port>5050</port>
-                            <!--<pactBrokerUrl>http://localhost</pactBrokerUrl>-->
-                            <verificationType>ANNOTATED_METHOD</verificationType>
-                            <packagesToScan>
-                                <packageToScan>com.github.uglyog.pactgradletest.*</packageToScan>
-                            </packagesToScan>
-                            <consumers>
-                                <consumer>
-                                    <name>sampleconsumer</name>
-                                    <pactFile>src/test/resources/v3-message-pact.json</pactFile>
-                                    <!--<pactUrl>http://ri-docker-host.hq.local:5000/pacts/provider/transaction-service/consumer/asis-insurance-service/latest</pactUrl>-->
-                                </consumer>
-                            </consumers>
+                            <!--<pactBrokerUrl>http://localhost:1234</pactBrokerUrl>-->
+                            <pactBroker>
+                                <url>http://localhost:1234</url>
+                                <tags>
+                                    <tag>TEST</tag>
+                                    <tag>DEV</tag>
+                                </tags>
+                                <authentication>
+                                    <username>test</username>
+                                    <password>test</password>
+                                </authentication>
+                            </pactBroker>
+
+                            <!--<verificationType>ANNOTATED_METHOD</verificationType>-->
+                            <!--<packagesToScan>-->
+                                <!--<packageToScan>com.github.uglyog.pactgradletest.*</packageToScan>-->
+                            <!--</packagesToScan>-->
+                            <!--<consumers>-->
+                                <!--<consumer>-->
+                                    <!--<name>sampleconsumer</name>-->
+                                    <!--<pactFile>src/test/resources/v3-message-pact.json</pactFile>-->
+                                    <!--&lt;!&ndash;<pactUrl>http://ri-docker-host.hq.local:5000/pacts/provider/transaction-service/consumer/asis-insurance-service/latest</pactUrl>&ndash;&gt;-->
+                                <!--</consumer>-->
+                            <!--</consumers>-->
                         </serviceProvider>
                     </serviceProviders>
+                    <pactDirectory>src/test/resources/pacts</pactDirectory>
+                    <pactBrokerUrl>https://test.pact.dius.com.au</pactBrokerUrl>
+                    <pactBrokerUsername>dXfltyFMgNOFZAxr8io9wJ37iUpY42M</pactBrokerUsername>
+                    <pactBrokerPassword>O5AIZWxelWbLvqMd8PkAVycBJh2Psyg1</pactBrokerPassword>
                 </configuration>
                 <dependencies>
                     <dependency>
