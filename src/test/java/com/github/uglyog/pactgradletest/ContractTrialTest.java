@@ -16,8 +16,8 @@ import org.apache.commons.codec.binary.Base64;
 
 @RunWith(PactRunner.class) // Say JUnit to run tests with custom Runner
 @Provider("Hello Provider") // Set up name of tested provider
-//@PactUrl(urls = {"file:///home/ronald/Development/Projects/Pact/pact-gradle-test/src/test/resources/hello_consumer-hello_provider.json"})
-@PactFolder("pacts")
+//@PactUrl(urls = {"file:///home/ronald/Development/Projects/Pact/pact-gradle-test/src/test/resources/pacts/hello_consumer-hello_provider.json"})
+@PactFolder("src/test/resources/pacts")
 //@VerificationReports({"console", "json", "markdown"})
 @Ignore
 public class ContractTrialTest {

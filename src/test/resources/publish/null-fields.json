@@ -1,0 +1,51 @@
+{
+  "consumer": {
+    "name": "Foo Web Client"
+  },
+  "provider": {
+    "name": "Activity Service"
+  },
+  "interactions": [
+    {
+      "description": "a request expecting null fields",
+      "request": {
+        "method": "get",
+        "path": "/nullfields",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": [
+          {
+            "doesNotExist": "Test",
+            "documentId": 0
+          }
+        ],
+        "matchingRules": {
+          "$.body": {
+            "min": 1
+          },
+          "$.body[*].*": {
+            "match": "type"
+          },
+          "$.body[*].doesNotExist": {
+            "match": "type"
+          },
+          "$.body[*].documentId": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "2.0.0"
+    }
+  }
+}

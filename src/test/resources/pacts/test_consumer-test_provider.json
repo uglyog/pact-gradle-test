@@ -1,0 +1,65 @@
+{
+    "provider": {
+        "name": "test_provider"
+    },
+    "consumer": {
+        "name": "test_consumer"
+    },
+    "interactions": [
+        {
+            "description": "java test interaction with ands and ors",
+            "request": {
+                "method": "GET",
+                "path": "/"
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                "body": {
+                    "valueB": "AB",
+                    "valueA": 100,
+                    "valueC": null
+                },
+                "matchingRules": {
+                    "body": {
+                        "$.valueB": {
+                            "matchers": [
+                                {
+                                    "match": "include",
+                                    "value": "A"
+                                },
+                                {
+                                    "match": "include",
+                                    "value": "B"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.valueC": {
+                            "matchers": [
+                                {
+                                    "match": "date",
+                                    "date": "yyyy-MM-dd"
+                                },
+                                {
+                                    "match": "null"
+                                }
+                            ],
+                            "combine": "OR"
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "metadata": {
+        "pact-specification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.5.0-rc.4"
+        }
+    }
+}

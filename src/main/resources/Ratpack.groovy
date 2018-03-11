@@ -18,10 +18,32 @@ ratpack {
 
 //    all RatpackPac4j.authenticator(new DirectBasicAuthClient())
 
-    get {
+    post('zoo-ws/animals') {
+      println "path=${request.path}"
+      println "contentType=${request.contentType}"
+      println "query=${request.query}"
+      println "headers:"
+      request.headers.names.each {
+        println "    $it=[${request.headers.get(it)}]"
+      }
+      request.getBody().then { TypedData data ->
+        println "body=[${data.text}]"
+      }
+
       response.contentType('application/json')
+      render JsonOutput.toJson([
+        feedingLog: [],
+        animalType: 'grizzly bear',
+        name      : 'Bubbles'
+      ])
+    }
+
+    get {
+      response.contentType('application/json; charset=UTF-8')
       render(JsonOutput.toJson([
-        _links: [:]
+        valueA: 100,
+        valueB: "AXB",
+        valueC: '2000-01-02'
       ]))
     }
 
@@ -270,7 +292,7 @@ ratpack {
                         "MANAGE_USER"
                       ],
                   "redirectUris": [
-            
+
                       ],
                   "refreshTokenValiditySeconds": 0,
                   "secretRequired": false
@@ -496,6 +518,28 @@ ratpack {
                   "secretRequired": true
         }
       ]''')
+    }
+
+    get('nullfields') {
+      response.contentType('application/json; charset=UTF-8')
+      render('''
+        [
+            {
+                "documentId": 0,
+                "documentCategoryId": 5,
+                "documentCategoryCode": null,
+                "contentLength": 0,
+                "tags": null
+            },
+            {
+                "documentId": 1,
+                "documentCategoryId": 5,
+                "documentCategoryCode": null,
+                "contentLength": 0,
+                "tags": null
+            }
+        ]
+      ''')
     }
   }
 
