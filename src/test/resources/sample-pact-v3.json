@@ -30,6 +30,17 @@
         "query": {
           "options": ["delete.topic.enable=true"],
           "broker": ["1"]
+        },
+        "headers": {
+          "X-Test": "Test"
+        },
+        "generators": {
+          "header": {
+            "X-Test": {
+              "expression": "a",
+              "type": "ProviderState"
+            }
+          }
         }
       },
       "response": {

@@ -59,13 +59,30 @@ ratpack {
 
     get('api/broker/add') {
       println "path=${request.path}"
+      println "contentType=${request.contentType}"
       println "query=${request.query}"
+      println "headers:"
+      request.headers.names.each {
+        println "    $it=[${request.headers.get(it)}]"
+      }
+      request.getBody().then { TypedData data ->
+        println "body=[${data.text}]"
+      }
       response.contentType('application/json')
       render(JsonOutput.toJson([
         name: [
           first: "Donald",
           last: "duck"
         ]
+      ]))
+    }
+
+    get('arrays') {
+      response.contentType('application/json')
+      render(JsonOutput.toJson([
+        "rawArray": [""],
+        "rawArrayEqTo": [""],
+        "regexpRawArray": [""]
       ]))
     }
 
@@ -97,17 +114,11 @@ ratpack {
     }
 
     post('tasks/pactStateChange') {
-      println "path=${request.path}"
-      println "contentType=${request.contentType}"
-      println "query=${request.query}"
-      println "headers:"
-      request.headers.names.each {
-        println "    $it=[${request.headers.get(it)}]"
-      }
-      request.getBody().then { TypedData data ->
-        println "body=[${data.text}]"
-      }
-      render('OK')
+      response.contentType('application/json')
+      render(JsonOutput.toJson([
+        a: 'Put this in the header, please!',
+        b: 2
+      ]))
     }
 
     get('article') {
@@ -540,6 +551,30 @@ ratpack {
             }
         ]
       ''')
+    }
+
+    get('dictionaryNestedArray') {
+      response.contentType('application/json; charset=UTF-8')
+      render(JsonOutput.toJson([
+        newFeature: [:],
+        events: [
+          tant: [
+            [ //note, this does NOT match the value given in the pact consumer test
+              title: "ant",
+              asdf: 1
+            ]
+          ],
+          john: [
+            [
+              title: "john",
+              date: "2017-04-08T22:33:31.000"
+            ], [
+              title: 100, //"johnny",
+              date: "2017-04-09T22:33:31.000"
+            ]
+          ]
+        ]
+      ]))
     }
   }
 

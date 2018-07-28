@@ -1,0 +1,72 @@
+{
+    "provider": {
+        "name": "EventsProvider"
+    },
+    "consumer": {
+        "name": "EventsConsumerDictionaryNestedArray"
+    },
+    "interactions": [
+        {
+            "description": "a request to get events keyed by title",
+            "request": {
+                "method": "GET",
+                "path": "/dictionaryNestedArray",
+                "headers": {
+                    "Accept": "application/json; charset=UTF-8"
+                }
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                "body": {
+                    "events": {
+                        "ant": [
+                            {
+                                "title": "ant"
+                            }
+                        ]
+                    }
+                },
+                "matchingRules": {
+                    "body": {
+                        "$.events.*": {
+                            "matchers": [
+                                {
+                                    "match": "type",
+                                    "min": 0
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.events.*[*].title": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    }
+                }
+            },
+            "providerStates": [
+                {
+                    "name": "initialStateForEventsTest"
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "pact-specification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.5.14",
+            "features": {
+                "pact.feature.matchers.useMatchValuesMatcher": false
+            }
+        }
+    }
+}

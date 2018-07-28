@@ -1,0 +1,68 @@
+{
+  "provider": {
+    "name": "Array Service"
+  },
+  "consumer": {
+    "name": "My Consumer"
+  },
+  "interactions": [
+    {
+      "description": "get some arrays",
+      "request": {
+        "method": "GET",
+        "path": "/arrays"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "rawArray": ["1"],
+          "rawArrayEqTo": ["1"],
+          "regexpRawArray": ["1"]
+        },
+        "matchingRules": {
+          "body": {
+            "$.rawArray": {
+              "matchers": [{
+                "match": "type"
+              }],
+              "combine": "AND"
+            },
+            "$.rawArrayEqTo": {
+              "matchers": [{
+                "match": "type"
+              }],
+              "combine": "AND"
+            },
+            "$.rawArrayEqTo[*]": {
+              "matchers": [{
+                "match": "equality"
+              }],
+              "combine": "AND"
+            },
+            "$.regexpRawArray": {
+              "matchers": [{
+                "match": "type"
+              }],
+              "combine": "AND"
+            },
+            "$.regexpRawArray[*]": {
+              "matchers": [{
+                "match": "regex",
+                "regex": ".+"
+              }],
+              "combine": "AND"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  }
+}

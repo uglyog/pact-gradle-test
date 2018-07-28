@@ -3,11 +3,13 @@ buildscript {
       mavenLocal()
       mavenCentral()
       jcenter()
+      maven { url 'https://jitpack.io' }
     }
 
     dependencies {
-      classpath 'au.com.dius:pact-jvm-provider-gradle_2.12:3.5.9'
+      classpath 'au.com.dius:pact-jvm-provider-gradle_2.12:3.5.20'
       classpath 'io.ratpack:ratpack-gradle:1.2.0'
+      classpath 'org.slf4j:jcl-over-slf4j:1.7.25'
     }
 }
 
@@ -28,7 +30,7 @@ dependencies {
   runtime 'ch.qos.logback:logback-core:1.1.7',
     'ch.qos.logback:logback-classic:1.1.7',
     'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
-  testCompile 'au.com.dius:pact-jvm-provider-junit_2.12:3.5.9',
+  testCompile 'au.com.dius:pact-jvm-provider-junit_2.12:3.5.20',
     'commons-codec:commons-codec:1.10'
 }
 
@@ -38,18 +40,21 @@ test {
 
 pact {
     serviceProviders {
-        'Activity Service' {
-            port = 5050
+        'ArraysProvider' {
+//            port = 5050
 //            stateChangeUrl = url('http://localhost:5050/tasks/pactStateChange')
 //            stateChangeUsesBody = false
-
-            hasPactWith("Foo Web Client") {
-              pactSource = file('src/test/resources/publish/null-fields.json')
-            }
-
-            hasPactWith("Foo Web Client 2") {
-                pactFile = file('src/test/resources/publish/sample-pact2.json')
-            }
+//            requestFilter = { req ->
+//              req.addHeader('Authorization', 'Basic dGVzdDAwMzoxMjM0NTY=')
+//            }
+//
+//            hasPactWith("Foo Web Client") {
+//              pactSource = file('src/test/resources/publish/null-fields.json')
+//            }
+//
+//            hasPactWith("Foo Web Client 2") {
+//                pactFile = file('src/test/resources/sample-pact-v3.json')
+//            }
 
 //            hasPactWith("sampleconsumerS3") {
 //                pactFile = 's3://irexchange-pacts/craft-mobile/test_consumer-testProvider.json'
@@ -59,7 +64,11 @@ pact {
 //              pactFileLocation = url("s3://....")
 //            }
 
-//          verificationType = "ANNOTATED_METHOD"
+          verificationType = "ANNOTATED_METHOD"
+          hasPactWith("messageProvider") {
+              pactSource = file('src/test/resources/v3-message-pact.json')
+          }
+
 //          hasPactsFromPactBroker('http://localhost:5050/')
 
 //          hasPactWith("wildcardkeys") {
@@ -78,6 +87,10 @@ pact {
 //            pactSource = file('src/test/resources/JVM Pact Broker Client-Pact Broker.json')
 //          }
 
+//          hasPactWith('arrays') {
+//            pactSource = file('src/test/resources/array-validation-test.json')
+//          }
+
         }
 
     }
@@ -90,9 +103,7 @@ pact {
     }
 
   publish {
-    pactDirectory = 'src/test/resources/publish'
-    pactBrokerUrl = 'https://test.pact.dius.com.au'
-    pactBrokerUsername = ''
-    pactBrokerPassword = ''
+    pactDirectory = 'multi-test/test1'
+    pactBrokerUrl = 'http://test1.docker.localhost'
   }
 }
