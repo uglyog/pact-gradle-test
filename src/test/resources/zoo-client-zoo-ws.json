@@ -1,0 +1,118 @@
+{
+    "provider": {
+        "name": "zoo-ws"
+    },
+    "consumer": {
+        "name": "zoo-client"
+    },
+    "interactions": [
+        {
+            "description": "a POST request to add a grizzly bear named Bubbles",
+            "request": {
+                "method": "POST",
+                "path": "/zoo-ws/animals",
+                "headers": {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                "body": "type=grizzly+bear&name=Bubbles"
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": {
+                    "feedingLog": [
+                        
+                    ],
+                    "animalType": "grizzly bear",
+                    "name": "Bubbles"
+                },
+                "matchingRules": {
+                    "body": {
+                        "$.name": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    }
+                }
+            },
+            "providerStates": [
+                {
+                    "name": "grizzly bear can be added to zoo"
+                }
+            ]
+        },
+        {
+            "description": "a POST request to add a grizzly bear named Bubbles with query parameters",
+            "request": {
+                "method": "POST",
+                "path": "/zoo-ws/animals",
+                "headers": {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                "query": {
+                    "level": [
+                        "6"
+                    ]
+                },
+                "body": "type=grizzly+bear&name=Bubbles",
+                "matchingRules": {
+                    "query": {
+                        "level": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "\\d+"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    }
+                }
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": {
+                    "feedingLog": [
+                        
+                    ],
+                    "animalType": "grizzly bear",
+                    "name": "Bubbles"
+                },
+                "matchingRules": {
+                    "body": {
+                        "$.name": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    }
+                }
+            },
+            "providerStates": [
+                {
+                    "name": "grizzly bear can be added to zoo"
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "pactSpecification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.5.21"
+        }
+    }
+}

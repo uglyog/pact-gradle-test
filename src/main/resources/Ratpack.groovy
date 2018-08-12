@@ -576,6 +576,24 @@ ratpack {
         ]
       ]))
     }
+
+    post('zoo-ws/animals') {
+      println "path=${request.path}"
+      println "query=${request.query}"
+      println "contentType=${request.contentType}"
+      println "headers:"
+      request.headers.names.each {
+        println "    $it=[${request.headers.get(it)}]"
+      }
+      request.getBody().then { TypedData data ->
+        println "body=[${data.text}]"
+      }
+      response.contentType('application/json')
+      render(JsonOutput.toJson([
+        a: 'Put this in the header, please!',
+        b: 2
+      ]))
+    }
   }
 
 }

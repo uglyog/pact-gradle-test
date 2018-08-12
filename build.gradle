@@ -7,7 +7,7 @@ buildscript {
     }
 
     dependencies {
-      classpath 'au.com.dius:pact-jvm-provider-gradle_2.12:3.5.20'
+      classpath 'au.com.dius:pact-jvm-provider-gradle_2.12:3.5.21'
       classpath 'io.ratpack:ratpack-gradle:1.2.0'
       classpath 'org.slf4j:jcl-over-slf4j:1.7.25'
     }
@@ -30,7 +30,7 @@ dependencies {
   runtime 'ch.qos.logback:logback-core:1.1.7',
     'ch.qos.logback:logback-classic:1.1.7',
     'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
-  testCompile 'au.com.dius:pact-jvm-provider-junit_2.12:3.5.20',
+  testCompile 'au.com.dius:pact-jvm-provider-junit_2.12:3.5.21',
     'commons-codec:commons-codec:1.10'
 }
 
@@ -40,7 +40,7 @@ test {
 
 pact {
     serviceProviders {
-        'ArraysProvider' {
+//        'ArraysProvider' {
 //            port = 5050
 //            stateChangeUrl = url('http://localhost:5050/tasks/pactStateChange')
 //            stateChangeUsesBody = false
@@ -64,10 +64,10 @@ pact {
 //              pactFileLocation = url("s3://....")
 //            }
 
-          verificationType = "ANNOTATED_METHOD"
-          hasPactWith("messageProvider") {
-              pactSource = file('src/test/resources/v3-message-pact.json')
-          }
+//          verificationType = "ANNOTATED_METHOD"
+//          hasPactWith("messageProvider") {
+//              pactSource = file('src/test/resources/v3-message-pact.json')
+//          }
 
 //          hasPactsFromPactBroker('http://localhost:5050/')
 
@@ -91,7 +91,14 @@ pact {
 //            pactSource = file('src/test/resources/array-validation-test.json')
 //          }
 
-        }
+//        }
+
+//      'zoo-provider' {
+//        port = 5050
+//        hasPactWith("zoo-client") {
+//          pactSource = { file('src/test/resources/zoo-client-zoo-ws.json') }
+//        }
+//      }
 
     }
 
