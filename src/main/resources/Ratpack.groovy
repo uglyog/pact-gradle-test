@@ -47,13 +47,25 @@ ratpack {
       ]))
     }
 
+//    get('activities') {
+//      response.contentType('application/json')
+//      render(JsonOutput.toJson([
+//        activities: [
+//          [name: "Bob", "description": "Description of bob"],
+//          [name: "Fred", "description": 100],
+//        ]
+//      ]))
+//    }
+
     get('activities') {
       response.contentType('application/json')
+      response.status(404)
       render(JsonOutput.toJson([
-        activities: [
-          [name: "Bob", "description": "Description of bob"],
-          [name: "Fred", "description": 100],
-        ]
+        timestamp: "2018-12-12T21:51:44.359+0000",
+        status: 404,
+        error: "Not Found",
+        message: "No message available",
+        path: "/api/application/"
       ]))
     }
 
@@ -592,6 +604,29 @@ ratpack {
       render(JsonOutput.toJson([
         a: 'Put this in the header, please!',
         b: 2
+      ]))
+    }
+
+    get('v1/monitoring/ping') {
+      response.contentType('application/json; charset=utf-8')
+      render(JsonOutput.toJson([:]))
+    }
+
+    get('donuts/byFloors') {
+      response.contentType('application/json; charset=utf-8')
+      render(JsonOutput.toJson([
+        "7": [
+          [
+            "quantity"   : 8,
+            "location"   : [
+              "floor": 7,
+              "room" : "south break room"
+            ],
+            "description": "Hostess Fruit Pies",
+            "creator"    : "Loren",
+            "id"         : 14
+          ]
+        ]
       ]))
     }
   }

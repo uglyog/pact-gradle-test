@@ -1,0 +1,114 @@
+{
+    "provider": {
+        "name": "266_provider"
+    },
+    "consumer": {
+        "name": "test_consumer"
+    },
+    "interactions": [
+        {
+            "description": "get all users for max",
+            "request": {
+                "method": "GET",
+                "path": "/idm/user"
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": [
+                    {
+                        "id": "e2490de5-5bd3-43d5-b7c4-526e33f71304",
+                        "name": "string",
+                        "email": "string"
+                    },
+                    {
+                        "id": "e2490de5-5bd3-43d5-b7c4-526e33f71304",
+                        "name": "string",
+                        "email": "string"
+                    },
+                    {
+                        "id": "e2490de5-5bd3-43d5-b7c4-526e33f71304",
+                        "name": "string",
+                        "email": "string"
+                    }
+                ],
+                "matchingRules": {
+                    "body": {
+                        "$": {
+                            "matchers": [
+                                {
+                                    "match": "type",
+                                    "min": 3
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$[*].*": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$[*].id": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$[*].name": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$[*].email": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    }
+                },
+                "generators": {
+                    "body": {
+                        "$[0][*].id": {
+                            "type": "Uuid"
+                        },
+                        "$[0][*].name": {
+                            "type": "RandomString",
+                            "size": 20
+                        },
+                        "$[0][*].email": {
+                            "type": "RandomString",
+                            "size": 20
+                        }
+                    }
+                }
+            },
+            "providerStates": [
+                {
+                    "name": "a user with an id named 'user' exists"
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "pactSpecification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.5.22"
+        }
+    }
+}

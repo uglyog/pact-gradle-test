@@ -1,0 +1,103 @@
+{
+  "provider": {
+    "name": "WildcardKeysProvider"
+  },
+  "consumer": {
+    "name": "WildcardKeysConsumer"
+  },
+  "interactions": [
+    {
+      "description": "a request for all available snacks mapped by floor",
+      "request": {
+        "method": "GET",
+        "path": "/donuts/byFloors"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "6": [
+            {
+              "creator": "Loren",
+              "quantity": 8,
+              "description": "Hostess Fruit Pies",
+              "location": {
+                "floor": 6,
+                "room": "south break room"
+              },
+              "id": 14
+            }
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.*": {
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 0
+                }
+              ],
+              "combine": "AND"
+            },
+            "$.*[*].description": {
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$.*[*].id": {
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$.*[*].creator": {
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$.*[*].quantity": {
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$.*[*].location.floor": {
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$.*[*].location.room": {
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ],
+              "combine": "AND"
+            }
+          }
+        }
+      },
+      "providerStates": [
+        {
+          "name": "there are Hostess Fruit pies available"
+        }
+      ]
+    }
+  ]
+}

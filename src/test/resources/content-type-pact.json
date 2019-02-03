@@ -1,0 +1,50 @@
+{
+  "provider": {
+    "name": "ProviderName"
+  },
+  "consumer": {
+    "name": "ConsumerName"
+  },
+  "interactions": [
+    {
+      "description": "sending a ping request",
+      "request": {
+        "method": "GET",
+        "path": "/v1/monitoring/ping"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "response": "pong"
+        },
+        "matchingRules": {
+          "body": {
+
+          },
+          "header": {
+            "Content-Type": {
+              "match": [
+                {
+                  "match": "regex",
+                  "regex": "application/json;\\s?charset=(utf|UTF)-8"
+                }
+              ],
+              "combine": "AND"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "3.5.19"
+    }
+  }
+}
