@@ -1,0 +1,150 @@
+{
+  "consumer": {
+    "name": "Donut Client"
+  },
+  "provider": {
+    "name": "Activity Service"
+  },
+  "interactions": [
+    {
+      "description": "a request for all available donuts",
+      "request": {
+        "method": "GET",
+        "path": "/donuts"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": [
+          {
+            "creator": "loren",
+            "quantity": 5,
+            "created": "2018-08-03T14:51:49.796",
+            "description": "donuts",
+            "location": {
+              "floor": 6,
+              "room": "south kitchen"
+            },
+            "id": 1,
+            "lastModified": "2018-08-03T14:51:54.796"
+          },
+          {
+            "creator": "loren",
+            "quantity": 1,
+            "created": "2018-08-03T14:51:49.796",
+            "description": "other donuts",
+            "location": {
+              "floor": 6,
+              "room": "south kitchen"
+            },
+            "id": 1,
+            "lastModified": "2018-08-03T14:51:54.796"
+          }
+        ],
+        "matchingRules": {
+          "header": {
+            "Content-Type": {
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json"
+                }
+              ],
+              "combine": "AND"
+            }
+          },
+          "body": {
+            "$": {
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 2,
+                  "max": 2
+                }
+              ],
+              "combine": "AND"
+            },
+            "$[0].id": {
+              "matchers": [
+                {
+                  "match": "number"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$[0].created": {
+              "matchers": [
+                {
+                  "match": "timestamp",
+                  "timestamp": "yyyy-MM-dd'T'HH:mm:ss.SSS"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$[0].lastModified": {
+              "matchers": [
+                {
+                  "match": "timestamp",
+                  "timestamp": "yyyy-MM-dd'T'HH:mm:ss.SSS"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$[0].creator": {
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$[0].quantity": {
+              "matchers": [
+                {
+                  "match": "number"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$[0].description": {
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$[0].location.floor": {
+              "matchers": [
+                {
+                  "match": "number"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$[0].location.room": {
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ],
+              "combine": "AND"
+            }
+          }
+        }
+      },
+      "providerStates": [
+        {
+          "name": "there are two snack entries"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "3.0.0"
+    }
+  }
+}

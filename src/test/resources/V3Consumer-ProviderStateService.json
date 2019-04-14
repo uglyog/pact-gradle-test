@@ -1,0 +1,66 @@
+{
+    "provider": {
+        "name": "ProviderStateService"
+    },
+    "consumer": {
+        "name": "V3Consumer"
+    },
+    "interactions": [
+        {
+            "description": "a request",
+            "request": {
+                "method": "POST",
+                "path": "/values",
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": {
+                    "userName": "Test",
+                    "userClass": "Shoddy"
+                }
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "LOCATION": "http://server/users/123",
+                    "Content-Type": "application/json"
+                },
+                "body": {
+                    "userName": "Test",
+                    "userId": 100
+                },
+                "generators": {
+                    "body": {
+                        "$.userId": {
+                            "type": "ProviderState",
+                            "expression": "userId"
+                        }
+                    },
+                    "header": {
+                        "LOCATION": {
+                            "type": "ProviderState",
+                            "expression": "http://server/users/${userId}"
+                        }
+                    }
+                }
+            },
+            "providerStates": [
+                {
+                    "name": "a provider state with injectable values",
+                    "params": {
+                        "valueA": "A",
+                        "valueB": 100
+                    }
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "pactSpecification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.6.0"
+        }
+    }
+}

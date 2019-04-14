@@ -128,8 +128,7 @@ ratpack {
     post('tasks/pactStateChange') {
       response.contentType('application/json')
       render(JsonOutput.toJson([
-        a: 'Put this in the header, please!',
-        b: 2
+        userId: 666
       ]))
     }
 
@@ -627,6 +626,55 @@ ratpack {
             "id"         : 14
           ]
         ]
+      ]))
+    }
+
+    get('donuts') {
+      response.contentType('application/json')
+      render('''[
+        {
+          "creator": "loren",
+          "quantity": 5,
+          "created": "2018-08-03T14:51:49.796",
+          "description": "donuts",
+          "location": {
+          "floor": 6,
+          "room": "south kitchen"
+        },
+          "id": 1,
+          "lastModified": "2018-08-03T14:51:54.796"
+        },
+        {
+          "creator": "loren",
+          "quantity": 5,
+          "created": "2018-08-03T14:51:49.796",
+          "description": "donuts",
+          "location": {
+          "floor": 6,
+          "room": "south kitchen"
+        },
+          "id": 1,
+          "lastModified": "X2018-08-03T14:51:54.796"
+        }
+      ]''')
+    }
+
+    post('values') {
+      println "path=${request.path}"
+      println "query=${request.query}"
+      println "contentType=${request.contentType}"
+      println "headers:"
+      request.headers.names.each {
+        println "    $it=[${request.headers.get(it)}]"
+      }
+      request.getBody().then { TypedData data ->
+        println "body=[${data.text}]"
+      }
+      response.contentType('application/json')
+      response.headers['LOCATION'] = ["http://server/users/666"]
+      render(JsonOutput.toJson([
+        userName: "Test",
+        userId: 666
       ]))
     }
   }
