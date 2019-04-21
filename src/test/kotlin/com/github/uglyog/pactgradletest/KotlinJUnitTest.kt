@@ -16,7 +16,7 @@ import org.junit.runner.RunWith
 class KotlinJUnitTest {
 
   @TestTarget
-  val target = HttpTarget(5050)
+  val target = HttpTarget(port = 5050)
 
   @State("many activities exist")
   fun state() {

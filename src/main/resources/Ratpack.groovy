@@ -677,6 +677,13 @@ ratpack {
         userId: 666
       ]))
     }
+
+    post('provider') {
+      response.cookie('someCookie', 'someValue')
+      response.cookie('someOtherCookie', 'someValue')
+      response.cookie('someThirdXCookie', 'someValue')
+      response.send()
+    }
   }
 
 }

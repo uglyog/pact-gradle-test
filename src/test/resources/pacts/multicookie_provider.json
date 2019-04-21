@@ -1,0 +1,52 @@
+{
+  "provider": {
+    "name": "multicookie_provider"
+  },
+  "consumer": {
+    "name": "browser_consumer"
+  },
+  "interactions": [
+    {
+      "description": "request to the provider",
+      "request": {
+        "method": "POST",
+        "path": "/provider"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "set-cookie": "someCookie\u003dsomeValue; Path\u003d/, someOtherCookie\u003dsomeValue; Path\u003d/, someThirdCookie\u003dsomeValue; Path\u003d/"
+        },
+        "matchingRules": {
+          "header": {
+            "set-cookie": {
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "\\QsomeCookie\u003d\\E.*"
+                },
+                {
+                  "match": "regex",
+                  "regex": "\\QsomeOtherCookie\u003d\\E.*"
+                },
+                {
+                  "match": "regex",
+                  "regex": "\\QsomeThirdCookie\u003d\\E.*"
+                }
+              ],
+              "combine": "OR"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "3.6.5"
+    }
+  }
+}

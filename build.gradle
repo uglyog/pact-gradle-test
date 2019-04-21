@@ -1,3 +1,5 @@
+import au.com.dius.pact.provider.PactVerification
+
 buildscript {
     repositories {
       mavenLocal()
@@ -7,7 +9,7 @@ buildscript {
     }
 
     dependencies {
-      classpath 'au.com.dius:pact-jvm-provider-gradle_2.12:3.5.24'
+      classpath 'au.com.dius:pact-jvm-provider-gradle_2.12:3.6.5'
       classpath 'io.ratpack:ratpack-gradle:1.2.0'
       classpath 'org.slf4j:jcl-over-slf4j:1.7.25'
     }
@@ -34,7 +36,7 @@ dependencies {
   runtime 'ch.qos.logback:logback-core:1.1.7',
     'ch.qos.logback:logback-classic:1.1.7',
     'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
-  testCompile 'au.com.dius:pact-jvm-provider-junit_2.12:3.5.24',
+  testCompile 'au.com.dius:pact-jvm-provider-junit_2.12:3.6.5',
     'commons-codec:commons-codec:1.10'
 }
 
@@ -106,6 +108,12 @@ pact {
 //        }
 //      }
 
+      MessageProvider {
+        verificationType = PactVerification.ANNOTATED_METHOD
+        hasPactWith('test_consumer_v3') {
+          pactSource = { file('src/test/resources/MessageWithMetadata.json') }
+        }
+      }
     }
 
     reports {
