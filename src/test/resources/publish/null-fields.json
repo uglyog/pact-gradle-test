@@ -16,9 +16,10 @@
         }
       },
       "response": {
-        "status": 200,
+        "status": 201,
         "headers": {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "HEADER-X": "Y"
         },
         "body": [
           {

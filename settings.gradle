@@ -1,2 +1,3 @@
 rootProject.name = 'pact-gradle-test'
 //include 'kotlin-gradle-test'
+include 'junit5'

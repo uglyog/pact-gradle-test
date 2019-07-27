@@ -14,10 +14,10 @@ class GroovyMessageTest {
   @PactVerifyProvider("a test message")
   Pair<String, Map> testMessage() {
     Pair.of(JsonOutput.toJson([
-      testParam1: 'value1',
+      testParam1: 'valueX',
       testParam2: 'value2'
     ]), [
-      "destination": "X001",
+      "destination": "001X",
       "Content-Type": "application/json; charset\u003dUTF-8"
     ])
   }
