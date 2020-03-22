@@ -1,8 +1,12 @@
 import groovy.json.JsonOutput
+import org.apache.commons.lang.RandomStringUtils
+import org.apache.commons.lang.math.RandomUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import ratpack.handling.RequestLogger
 import ratpack.http.TypedData
+import ratpack.ssl.SSLContexts
+
 //import ratpack.pac4j.RatpackPac4j
 //import org.pac4j.http.client.direct.DirectBasicAuthClient
 
@@ -11,6 +15,12 @@ import static ratpack.groovy.Groovy.ratpack
 final Logger logger = LoggerFactory.getLogger(Ratpack.class)
 
 ratpack {
+
+//  serverConfig {
+//    address(InetAddress.getByName('0.0.0.0'))
+//    development(false)
+//    ssl SSLContexts.sslContext(new File('keystore.jks'), 'password')
+//  }
 
   handlers {
 
@@ -126,6 +136,16 @@ ratpack {
     }
 
     post('tasks/pactStateChange') {
+      println "path=${request.path}"
+      println "contentType=${request.contentType}"
+      println "headers:"
+      request.headers.names.each {
+        println "    $it=[${request.headers.get(it)}]"
+      }
+      request.getBody().then { TypedData data ->
+        println "body=[${data.text}]"
+      }
+
       response.contentType('application/json')
       render(JsonOutput.toJson([
         userId: 666
@@ -683,6 +703,46 @@ ratpack {
       response.cookie('someOtherCookie', 'someValue')
       response.cookie('someThirdXCookie', 'someValue')
       response.send()
+    }
+
+    get('files') {
+      response.contentType('application/json')
+      def first = [
+        "path": RandomStringUtils.randomAlphanumeric(100),
+        "size": RandomUtils.nextInt(100),
+        "name": RandomStringUtils.randomAlphanumeric(20),
+        "record_size": RandomUtils.nextInt(10),
+        "id": RandomStringUtils.randomAlphanumeric(20),
+        "type": "EXAMPLE"
+      ]
+      def last = [
+        "path": RandomStringUtils.randomAlphanumeric(100),
+        "size": RandomUtils.nextInt(100),
+        "name": RandomStringUtils.randomAlphanumeric(20),
+        "record_size": RandomUtils.nextInt(10),
+        "id": RandomStringUtils.randomAlphanumeric(20),
+        "type": "EXAMPLE"
+      ]
+      def files = (1..198).collect {
+        [
+          "path": RandomStringUtils.randomAlphanumeric(100),
+          "size": RandomUtils.nextInt(100),
+          "name": RandomStringUtils.randomAlphanumeric(20),
+          "record_size": RandomUtils.nextInt(10),
+          "id": RandomStringUtils.randomAlphanumeric(20),
+          "type": "TYPE_C"
+        ]
+      }
+      render(JsonOutput.toJson([
+        [
+          files: ([first] + files + last).flatten()
+        ]
+      ]))
+    }
+
+    get('alligators/:name') { ctx ->
+      response.contentType('application/json;charset=utf-8')
+      render(JsonOutput.toJson([name: 'Mary']))
     }
   }
 

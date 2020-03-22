@@ -7,7 +7,7 @@ repositories {
 
 dependencies {
   testCompile "org.junit.jupiter:junit-jupiter-api:5.2.0"
-  testCompile 'au.com.dius:pact-jvm-provider-junit5_2.12:3.6.9'
+  testCompile 'au.com.dius:pact-jvm-provider-junit5:4.0.7'
   testCompile "org.apache.httpcomponents:httpclient:4.5.5"
   testRuntime "ch.qos.logback:logback-classic:1.2.3"
   testRuntime "org.junit.jupiter:junit-jupiter-engine:5.2.0"
@@ -15,4 +15,6 @@ dependencies {
 
 test {
   useJUnitPlatform()
+
+//  systemProperty('pact.verifier.publishResults', 'true')
 }
