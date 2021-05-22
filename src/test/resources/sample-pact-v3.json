@@ -46,7 +46,9 @@
       "response": {
         "status": 200,
         "headers": {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Access-Control-Expose-Headers": "content-length,content-type",
+          "X-XSS-Protection": "1; mode=block"
         },
         "body": {
           "name": {

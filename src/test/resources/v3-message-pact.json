@@ -3,7 +3,7 @@
     "name": "Foo Message Client"
   },
   "provider": {
-    "name": "Activity Service"
+    "name": "Message Service"
   },
   "messages": [
     {

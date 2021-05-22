@@ -1,14 +1,14 @@
-package com.github.uglyog.pactgradletest;
-
-import au.com.dius.pact.provider.PactVerifyProvider;
-
-public class MessageTest {
+//package com.github.uglyog.pactgradletest;
+//
+//import au.com.dius.pact.provider.PactVerifyProvider;
+//
+//public class MessageTest {
 //  @PactVerifyProvider("a hello message")
-  public String helloMessage() {
-    System.out.println(">>> Hello");
-    return "\"Hello\"";
-  }
-}
+//  public String helloMessage() {
+//    System.out.println(">>> Hello");
+//    return "\"Hello\"";
+//  }
+//}
 
 /*
 Verifying a pact between MIRB and IPS

@@ -13,6 +13,18 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>au.com.dius.pact.provider</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.1.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+            <scope>test</scope>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>au.com.dius</groupId>-->
             <!--<artifactId>pact-jvm</artifactId>-->
@@ -41,43 +53,57 @@
             </plugin>
 
             <plugin>
-                <groupId>au.com.dius</groupId>
-                <artifactId>pact-jvm-provider-maven_2.12</artifactId>
-                <version>3.5.25</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>au.com.dius.pact.provider</groupId>
+                <artifactId>maven</artifactId>
+                <version>4.1.11</version>
                 <configuration>
                     <serviceProviders>
                         <serviceProvider>
                             <name>Activity Service</name>
-                            <!--<port>5050</port>-->
+                            <port>5050</port>
                             <!--<pactBrokerUrl>http://localhost:1234</pactBrokerUrl>-->
-                            <!--<pactBroker>-->
-                                <!--<url>https://test.pact.dius.com.au/</url>-->
-                                <!--&lt;!&ndash;<serverId>test-pact-broker</serverId>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<tags>&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<tag>TEST</tag>&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<tag>DEV</tag>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</tags>&ndash;&gt;-->
-                                <!--<authentication>-->
-                                    <!--<username></username>-->
-                                    <!--<password></password>-->
-                                <!--</authentication>-->
-                            <!--</pactBroker>-->
+                            <pactBroker>
+                                <url>https://test.pact.dius.com.au/</url>
+                                <!--<serverId>test-pact-broker</serverId>-->
+                                <tags>
+                                    <tag>test</tag>
+                                    <!--<tag>DEV</tag>-->
+                                </tags>
+                                <authentication>
+                                    <username>dXfltyFMgNOFZAxr8io9wJ37iUpY42M</username>
+                                    <password>O5AIZWxelWbLvqMd8PkAVycBJh2Psyg1</password>
+                                </authentication>
+                                <enablePending>
+                                    <providerTags>
+                                        <tag>master</tag>
+                                    </providerTags>
+                                </enablePending>
+                            </pactBroker>
 
-                            <!--<verificationType>ANNOTATED_METHOD</verificationType>-->
-                            <!--<packagesToScan>-->
-                                <!--<packageToScan>com.github.uglyog.pactgradletest.*</packageToScan>-->
-                            <!--</packagesToScan>-->
-                            <!--<consumers>-->
+<!--                            <verificationType>ANNOTATED_METHOD</verificationType>-->
+<!--                            <packagesToScan>-->
+<!--                                <packageToScan>com.github.uglyog.pactgradletest.*</packageToScan>-->
+<!--                            </packagesToScan>-->
+<!--                            <consumers>-->
                                 <!--&lt;!&ndash;<consumer>&ndash;&gt;-->
                                     <!--&lt;!&ndash;<name>sampleconsumer</name>&ndash;&gt;-->
                                     <!--&lt;!&ndash;<pactFile>src/test/resources/sample-pact-v4.json</pactFile>&ndash;&gt;-->
                                     <!--&lt;!&ndash;&lt;!&ndash;<pactUrl>http://ri-docker-host.hq.local:5000/pacts/provider/transaction-service/consumer/asis-insurance-service/latest</pactUrl>&ndash;&gt;&ndash;&gt;-->
                                 <!--&lt;!&ndash;</consumer>&ndash;&gt;-->
-                                <!--<consumer>-->
-                                    <!--<name>message-consumer</name>-->
-                                    <!--<pactFile>src/test/resources/v3-message-pact.json</pactFile>-->
-                                <!--</consumer>-->
-                            <!--</consumers>-->
+<!--                                <consumer>-->
+<!--                                    <name>message-consumer</name>-->
+<!--                                    <pactUrl>file:src/test/resources/v3-message-pact.json</pactUrl>-->
+<!--                                </consumer>-->
+<!--                            </consumers>-->
                             <!--&lt;!&ndash;<pactFileDirectory>src/test/resources/publish</pactFileDirectory>&ndash;&gt;-->
                             <!--<pactFileDirectories>-->
                                 <!--<pactFileDirectory>src/test/resources/publish2</pactFileDirectory>-->
@@ -85,8 +111,11 @@
                             <!--</pactFileDirectories>-->
                         </serviceProvider>
                     </serviceProviders>
-                    <!--<pactBrokerUrl>https://test.pact.dius.com.au</pactBrokerUrl>-->
-                    <!--<pactBrokerServerId>test-pact-broker</pactBrokerServerId>-->
+                    <pactBrokerUrl>https://test.pact.dius.com.au</pactBrokerUrl>
+                    <pactBrokerUsername>dXfltyFMgNOFZAxr8io9wJ37iUpY42M</pactBrokerUsername>
+                    <pactBrokerPassword>O5AIZWxelWbLvqMd8PkAVycBJh2Psyg1</pactBrokerPassword>
+                    <retriesWhenUnknown>3</retriesWhenUnknown>
+<!--                    <pactBrokerServerId>test-pact-broker</pactBrokerServerId>-->
                     <failIfNoPactsFound>false</failIfNoPactsFound>
                     <!--<excludes>-->
                         <!--<exclude>.*</exclude>-->
@@ -108,11 +137,6 @@
                         <groupId>org.slf4j</groupId>
                         <artifactId>slf4j-jdk14</artifactId>
                         <version>1.7.21</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.fusesource.jansi</groupId>
-                        <artifactId>jansi</artifactId>
-                        <version>1.16</version>
                     </dependency>
                 </dependencies>
             </plugin>

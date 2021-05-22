@@ -1,0 +1,37 @@
+{
+  "provider": {
+    "name": "My Provider"
+  },
+  "consumer": {
+    "name": "My Consumer"
+  },
+  "interactions": [
+    {
+      "description": "add a broker",
+      "request": {
+        "method": "GET",
+        "path": "/api/broker/add",
+        "query": "delete.topic.enable=true&broker=1",
+        "headers": {
+          "X-Test": "Test"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json",
+          "Access-Control-Expose-Headers": "content-length,content-type",
+          "X-XSS-Protection": "1; mode=block"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "2.0.0"
+    },
+    "pact-jvm": {
+      "version": "3.2.5"
+    }
+  }
+}

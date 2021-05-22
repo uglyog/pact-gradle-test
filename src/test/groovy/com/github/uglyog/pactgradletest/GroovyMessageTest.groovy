@@ -6,7 +6,7 @@ import groovy.json.JsonOutput
 import org.apache.commons.lang3.tuple.Pair
 
 class GroovyMessageTest {
-  @PactVerifyProvider("a hello message")
+//  @PactVerifyProvider("a hello message")
   String helloMessage() {
     "\"Hello\""
   }

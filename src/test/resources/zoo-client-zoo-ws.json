@@ -19,7 +19,8 @@
             "response": {
                 "status": 200,
                 "headers": {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Set-Cookie": "AWSELBID=baaadbeef6767676767690220; Path=/alpha, JSESSIONID=alphabeta120394049; HTTPOnly"
                 },
                 "body": {
                     "feedingLog": [

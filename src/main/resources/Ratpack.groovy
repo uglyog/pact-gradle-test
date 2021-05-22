@@ -1,4 +1,5 @@
 import groovy.json.JsonOutput
+import io.netty.handler.codec.http.cookie.DefaultCookie
 import org.apache.commons.lang.RandomStringUtils
 import org.apache.commons.lang.math.RandomUtils
 import org.slf4j.Logger
@@ -40,12 +41,18 @@ ratpack {
         println "body=[${data.text}]"
       }
 
-      response.contentType('application/json')
-      render JsonOutput.toJson([
-        feedingLog: [],
-        animalType: 'grizzly bear',
-        name      : 'Bubbles'
-      ])
+      if (request.query == '') {
+        response.contentType('application/json')
+        response.cookie('AWSELBID', 'baaadbeef6767676767690220').path = '/alpha'
+        response.cookie('JSESSIONID', 'alphabeta120394049').httpOnly = true
+        render JsonOutput.toJson([
+          feedingLog: [],
+          animalType: 'grizzly bear',
+          name      : 'Bubbles'
+        ])
+      } else {
+        response.status(500)
+      }
     }
 
     get {
@@ -57,17 +64,18 @@ ratpack {
       ]))
     }
 
-//    get('activities') {
-//      response.contentType('application/json')
-//      render(JsonOutput.toJson([
-//        activities: [
-//          [name: "Bob", "description": "Description of bob"],
-//          [name: "Fred", "description": 100],
-//        ]
-//      ]))
-//    }
-
     get('activities') {
+      response.contentType('application/json')
+      response.status(404)
+      render(JsonOutput.toJson([
+        activities: [
+          [name: "Bob", "description": "Description of bob"],
+          [name: "Fred", "description": 100],
+        ]
+      ]))
+    }
+
+    post('api/application') {
       response.contentType('application/json')
       response.status(404)
       render(JsonOutput.toJson([
@@ -91,6 +99,8 @@ ratpack {
         println "body=[${data.text}]"
       }
       response.contentType('application/json')
+      response.headers.add("Access-Control-Expose-Headers", "content-length,content-type")
+        .add("X-XSS-Protection", "1; mode=block")
       render(JsonOutput.toJson([
         name: [
           first: "Donald",
@@ -564,9 +574,12 @@ ratpack {
 
     get('nullfields') {
       response.contentType('application/json; charset=UTF-8')
+      response.headers['HEADER-X'] = ['Y']
+      response.status(201)
       render('''
         [
             {
+                "doesNotExist": "Test",
                 "documentId": 0,
                 "documentCategoryId": 5,
                 "documentCategoryCode": null,
@@ -574,6 +587,7 @@ ratpack {
                 "tags": null
             },
             {
+                "doesNotExist": "Test",
                 "documentId": 1,
                 "documentCategoryId": 5,
                 "documentCategoryCode": null,
@@ -608,23 +622,23 @@ ratpack {
       ]))
     }
 
-    post('zoo-ws/animals') {
-      println "path=${request.path}"
-      println "query=${request.query}"
-      println "contentType=${request.contentType}"
-      println "headers:"
-      request.headers.names.each {
-        println "    $it=[${request.headers.get(it)}]"
-      }
-      request.getBody().then { TypedData data ->
-        println "body=[${data.text}]"
-      }
-      response.contentType('application/json')
-      render(JsonOutput.toJson([
-        a: 'Put this in the header, please!',
-        b: 2
-      ]))
-    }
+//    post('zoo-ws/animals') {
+//      println "path=${request.path}"
+//      println "query=${request.query}"
+//      println "contentType=${request.contentType}"
+//      println "headers:"
+//      request.headers.names.each {
+//        println "    $it=[${request.headers.get(it)}]"
+//      }
+//      request.getBody().then { TypedData data ->
+//        println "body=[${data.text}]"
+//      }
+//      response.contentType('application/json')
+//      render(JsonOutput.toJson([
+//        a: 'Put this in the header, please!',
+//        b: 2
+//      ]))
+//    }
 
     get('v1/monitoring/ping') {
       response.contentType('application/json; charset=utf-8')
@@ -744,6 +758,20 @@ ratpack {
       response.contentType('application/json;charset=utf-8')
       render(JsonOutput.toJson([name: 'Mary']))
     }
-  }
 
+    post('messages') {
+      println "path=${request.path}"
+      println "query=${request.query}"
+      println "contentType=${request.contentType}"
+      println "headers:"
+      request.headers.names.each {
+        println "    $it=[${request.headers.get(it)}]"
+      }
+      request.getBody().then { TypedData data ->
+        println "body=[${data.text}]"
+      }
+      response.contentType('application/json;charset=utf-8')
+      render(JsonOutput.toJson([a: '1234']))
+    }
+  }
 }
