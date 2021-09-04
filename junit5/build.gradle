@@ -6,14 +6,16 @@ repositories {
 }
 
 dependencies {
-  testCompile "org.junit.jupiter:junit-jupiter-api:5.2.0"
-  testCompile 'au.com.dius.pact.provider:junit5:4.2.1'
-  testCompile 'au.com.dius.pact.consumer:junit5:4.2.1'
-  testCompile "org.apache.httpcomponents:httpclient:4.5.5"
-  testRuntime "ch.qos.logback:logback-classic:1.2.3"
-  testRuntime "org.junit.jupiter:junit-jupiter-engine:5.2.0"
-  testCompile 'org.hamcrest:hamcrest:2.1'
-  testCompile 'com.google.guava:guava:24.0-jre'
+  testImplementation "org.junit.jupiter:junit-jupiter-api:5.2.0"
+  testImplementation 'au.com.dius.pact.provider:junit5:4.2.10'
+  testImplementation 'au.com.dius.pact.consumer:junit5:4.2.10'
+  testImplementation "org.apache.httpcomponents:httpclient:4.5.5"
+  testImplementation "ch.qos.logback:logback-classic:1.2.3"
+  testImplementation "ch.qos.logback:logback-core:1.2.3"
+  testImplementation 'org.slf4j:jcl-over-slf4j:1.7.32'
+  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.2.0"
+  testImplementation 'org.hamcrest:hamcrest:2.1'
+  testImplementation 'com.google.guava:guava:24.0-jre'
 }
 
 test {

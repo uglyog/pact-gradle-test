@@ -1,0 +1,57 @@
+{
+  "consumer": {
+    "name": "serviceA"
+  },
+  "provider": {
+    "name": "serviceB"
+  },
+  "interactions": [
+    {
+      "description": "a request for activities",
+      "request": {
+        "method": "get",
+        "path": "/activities",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "activities": [
+            {
+              "name": "hx55sbvMPk1kF-9X",
+              "description": "f_UXcxIXYhgqtxjiPumRiCo9C5JNDX"
+            },
+            {
+              "name": "hx55sbvMPk1kF-9",
+              "description": "f_UXcxIXYhgqtxjiPumRiCo9C5JNDX"
+            }
+          ]
+        },
+        "matchingRules": {
+          "$.body.activities": {
+            "min": 2
+          },
+          "$.body.activities[*].*": {
+            "match": "type"
+          },
+          "$.body.activities[*].name": {
+            "match": "type"
+          },
+          "$.body.activities[*].description": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "2.0.0"
+    }
+  }
+}

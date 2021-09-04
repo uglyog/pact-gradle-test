@@ -773,5 +773,11 @@ ratpack {
       response.contentType('application/json;charset=utf-8')
       render(JsonOutput.toJson([a: '1234']))
     }
+
+    get('data') { ctx ->
+      println "path=${request.path}"
+      response.contentType('application/json;charset=utf-8')
+      render(JsonOutput.toJson(["foo": "bar"]))
+    }
   }
 }

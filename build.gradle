@@ -4,12 +4,11 @@ buildscript {
     repositories {
       mavenLocal()
       mavenCentral()
-      jcenter()
       maven { url 'https://jitpack.io' }
     }
 
     dependencies {
-      classpath 'au.com.dius.pact.provider:gradle:4.1.21'
+      classpath 'au.com.dius.pact.provider:gradle:4.2.8'
       classpath 'io.ratpack:ratpack-gradle:1.8.0'
       classpath 'org.slf4j:jcl-over-slf4j:1.7.25'
     }
@@ -20,24 +19,23 @@ plugins {
 }
 
 apply plugin: 'java'
-apply plugin: 'maven'
+//apply plugin: 'maven'
 apply plugin: 'au.com.dius.pact'
 apply plugin: 'io.ratpack.ratpack-groovy'
 
-version = '1.0.3'
+version = 'versionC'
 
 repositories {
   mavenLocal()
   mavenCentral()
-  jcenter()
 }
 
 dependencies {
   runtime 'ch.qos.logback:logback-core:1.1.7',
     'ch.qos.logback:logback-classic:1.1.7',
     'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
-  testRuntime 'au.com.dius.pact.provider:gradle:4.1.21'
-  testCompile 'au.com.dius.pact.provider:junit:4.1.21',
+  testRuntime 'au.com.dius.pact.provider:gradle:4.2.8'
+  testCompile 'au.com.dius.pact.provider:junit:4.2.8',
     'commons-codec:commons-codec:1.10'
   implementation 'javax.activation:activation:1.1.1'
 }
@@ -62,7 +60,7 @@ task killTheApp {
 
 pact {
     serviceProviders {
-        'Activity Service' {
+        'serviceD' {
             port = 5050
 
 //            startProviderTask = startTheApp
@@ -74,8 +72,8 @@ pact {
 //              req.addHeader('Authorization', 'Basic dGVzdDAwMzoxMjM0NTY=')
 //            }
 
-          providerVersion = { 'xxx' }
-//          providerTag = { "tag/with/slash" }
+          providerVersion = { 'versionD' }
+//          providerTag = "tag/with/slash"
 
 //            hasPactWith("Foo Web Client") {
 //              pactSource = file('src/test/resources/publish/null-fields.json')
@@ -102,7 +100,8 @@ pact {
 //              pactSource = file('src/test/resources/v3-message-pact.json')
 //          }
 
-          hasPactsFromPactBroker('https://rontest.pact.dius.com.au/', authentication: ['Bearer', 'NNFcDiQrP7Mkp5dBLJoeNw'])
+//          hasPactsFromPactBroker('https://rontest.pact.dius.com.au/', authentication: ['Bearer', 'NNFcDiQrP7Mkp5dBLJoeNw'])
+          hasPactsFromPactBroker('http://localhost:9292/')
 
 //          hasPactWith("wildcardkeys") {
 //              pactSource = file('src/test/resources/WildcardKeysConsumer-WildcardKeysProvider.json')
@@ -157,10 +156,10 @@ pact {
   }
 
   broker {
-//    pactBrokerUrl = 'http://localhost:9292/'
+    pactBrokerUrl = 'http://localhost:9292/'
 //    pactBrokerUsername = 'dXfltyFMgNOFZAxr8io9wJ37iUpY42M'
 //    pactBrokerPassword = 'O5AIZWxelWbLvqMd8PkAVycBJh2Psyg1'
-//    pactBrokerToken = '16DtCz3ysGvSRBK0BKAheA'
+//    pactBrokerToken = 'FuDz4VjDg3zzwcWh9bckTQ'
     retryCountWhileUnknown = 3
   }
 }
