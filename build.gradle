@@ -1,3 +1,4 @@
+import au.com.dius.pact.core.pactbroker.ConsumerVersionSelectors
 import au.com.dius.pact.provider.PactVerification
 
 buildscript {
@@ -8,14 +9,14 @@ buildscript {
     }
 
     dependencies {
-      classpath 'au.com.dius.pact.provider:gradle:4.2.8'
-      classpath 'io.ratpack:ratpack-gradle:1.8.0'
+      classpath 'au.com.dius.pact.provider:gradle:4.6.2'
+      classpath 'io.ratpack:ratpack-gradle:2.0.0-rc-1'
       classpath 'org.slf4j:jcl-over-slf4j:1.7.25'
     }
 }
 
 plugins {
-  id 'nebula.kotlin' version '1.3.71'
+  id 'org.jetbrains.kotlin.jvm' version '1.8.22'
 }
 
 apply plugin: 'java'
@@ -23,7 +24,7 @@ apply plugin: 'java'
 apply plugin: 'au.com.dius.pact'
 apply plugin: 'io.ratpack.ratpack-groovy'
 
-version = 'versionC'
+version = '0.0.1'
 
 repositories {
   mavenLocal()
@@ -31,13 +32,15 @@ repositories {
 }
 
 dependencies {
-  runtime 'ch.qos.logback:logback-core:1.1.7',
+  implementation 'ch.qos.logback:logback-core:1.1.7',
     'ch.qos.logback:logback-classic:1.1.7',
     'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
-  testRuntime 'au.com.dius.pact.provider:gradle:4.2.8'
-  testCompile 'au.com.dius.pact.provider:junit:4.2.8',
+  testImplementation 'au.com.dius.pact.provider:gradle:4.6.2'
+  testImplementation 'au.com.dius.pact.provider:junit:4.6.2',
     'commons-codec:commons-codec:1.10'
   implementation 'javax.activation:activation:1.1.1'
+  implementation 'org.apache.commons:commons-lang3:3.12.0'
+  testImplementation 'org.apache.groovy:groovy-json:4.0.11'
 }
 
 test {
@@ -46,13 +49,13 @@ test {
 //  systemProperties['pact.verifier.publishResults'] = 'true'
 }
 
-task startTheApp {
+tasks.register('startTheApp') {
   doFirst {
     println "startTheApp"
   }
 }
 
-task killTheApp {
+tasks.register('killTheApp') {
   doFirst {
     println "killTheApp"
   }
@@ -60,7 +63,7 @@ task killTheApp {
 
 pact {
     serviceProviders {
-        'serviceD' {
+        'plugin' {
             port = 5050
 
 //            startProviderTask = startTheApp
@@ -101,7 +104,7 @@ pact {
 //          }
 
 //          hasPactsFromPactBroker('https://rontest.pact.dius.com.au/', authentication: ['Bearer', 'NNFcDiQrP7Mkp5dBLJoeNw'])
-          hasPactsFromPactBroker('http://localhost:9292/')
+//          hasPactsFromPactBroker('http://localhost:9292/')
 
 //          hasPactWith("wildcardkeys") {
 //              pactSource = file('src/test/resources/WildcardKeysConsumer-WildcardKeysProvider.json')
@@ -123,11 +126,18 @@ pact {
 //            pactSource = file('src/test/resources/defect749-pact.json')
 //          }
 
-//            fromPactBroker {
+            fromPactBroker {
 //                selectors = latestTags('tag/with/slash')
+              selectors = [ new ConsumerVersionSelectors.Selector(null, true) ]
 //                enablePending = true
 //                providerTags = ['master']
-//            }
+              providerBranch = 'pact-protobuf-plugin'
+
+              withSelectors {
+//                mainBranch()
+//                branch('pact-protobuf-plugin')
+              }
+            }
         }
 
 //       'zoo-ws' {
@@ -149,17 +159,19 @@ pact {
     }
 
   publish {
-    pactDirectory = 'src/test/resources/publish'
+//    pactDirectory = 'src/test/resources/publish'
+    pactDirectory = 'pacts'
 //    pactBrokerUrl = 'https://test.pact.dius.com.au/'
 //    pactBrokerUsername = ''
 //    pactBrokerPassword = ''
   }
 
   broker {
-    pactBrokerUrl = 'http://localhost:9292/'
+//    pactBrokerUrl = 'https://pact-foundation.pactflow.io'
+    pactBrokerUrl = 'http://127.0.0.1:9292'
 //    pactBrokerUsername = 'dXfltyFMgNOFZAxr8io9wJ37iUpY42M'
 //    pactBrokerPassword = 'O5AIZWxelWbLvqMd8PkAVycBJh2Psyg1'
-//    pactBrokerToken = 'FuDz4VjDg3zzwcWh9bckTQ'
-    retryCountWhileUnknown = 3
+//    pactBrokerToken = 'heNYM8YagmA5nkL0YhpyeQ'
+//    retryCountWhileUnknown = 3
   }
 }
